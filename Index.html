@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Serena Voss, M.D. — Psychiatrist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sage: #8aaa8e;
+    --deep: #1c2b2d;
+    --cream: #f5f0e8;
+    --warm: #c9a96e;
+    --mist: #dce8e2;
+    --text: #2e3e40;
+    --light: #f9f6f1;
+    --accent: #6b9e7a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(138,170,142,0.2);
+    transition: all 0.3s;
+  }
+
+  nav.scrolled {
+    padding: 0.8rem 5%;
+    box-shadow: 0 2px 20px rgba(28,43,45,0.08);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--deep);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--sage); font-style: italic; }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    text-decoration: none; color: var(--text);
+    font-size: 0.85rem; font-weight: 400; letter-spacing: 0.05em;
+    text-transform: uppercase; transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+    height: 1px; background: var(--sage); transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  .nav-cta {
+    background: var(--deep); color: var(--cream) !important;
+    padding: 0.6rem 1.4rem; border-radius: 2rem;
+    font-weight: 500 !important;
+    transition: background 0.3s !important;
+  }
+
+  .nav-cta::after { display: none !important; }
+  .nav-cta:hover { background: var(--accent) !important; color: white !important; }
+
+  /* HAMBURGER */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; background: none; border: none; padding: 4px;
+  }
+
+  .hamburger span {
+    width: 24px; height: 2px; background: var(--deep);
+    transition: all 0.3s; display: block;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+  .mobile-menu {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--cream); z-index: 99; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2.5rem;
+  }
+
+  .mobile-menu.open { display: flex; animation: fadeIn 0.3s ease; }
+
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif; font-size: 2.2rem;
+    color: var(--deep); text-decoration: none; font-weight: 300;
+    transition: color 0.3s;
+  }
+
+  .mobile-menu a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    padding: 5% 5% 5% 8%;
+    animation: slideUp 1s ease both;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--accent); margin-bottom: 1.5rem; font-weight: 500;
+  }
+
+  .hero-tag::before {
+    content: ''; width: 28px; height: 1px; background: var(--accent);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.1; font-weight: 300;
+    color: var(--deep); margin-bottom: 0.3rem;
+  }
+
+  .hero-title em {
+    font-style: italic; color: var(--sage); font-weight: 400;
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    color: var(--warm); font-weight: 300; margin-bottom: 2rem;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-desc {
+    font-size: 1rem; line-height: 1.8; color: #5a7072;
+    max-width: 480px; margin-bottom: 2.8rem;
+  }
+
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--deep); color: var(--cream);
+    padding: 0.9rem 2.2rem; border-radius: 3rem;
+    text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    letter-spacing: 0.04em; transition: all 0.3s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent); transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(107,158,122,0.35);
+  }
+
+  .btn-outline {
+    border: 1.5px solid var(--sage); color: var(--deep);
+    padding: 0.9rem 2.2rem; border-radius: 3rem;
+    text-decoration: none; font-weight: 400; font-size: 0.9rem;
+    letter-spacing: 0.04em; transition: all 0.3s;
+  }
+
+  .btn-outline:hover {
+    background: var(--mist); transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem;
+    padding-top: 2rem; border-top: 1px solid rgba(138,170,142,0.25);
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 600; color: var(--deep);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.78rem; color: #7a9496; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-top: 0.3rem;
+  }
+
+  /* HERO IMAGE */
+  .hero-visual {
+    position: relative; height: 100vh;
+    background: var(--mist);
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+    overflow: hidden;
+    animation: fadeIn 1.2s ease both 0.3s;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 30%, rgba(138,170,142,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse at 30% 80%, rgba(201,169,110,0.2) 0%, transparent 50%),
+      linear-gradient(135deg, #dce8e2 0%, #e8f0ec 40%, #c5daca 100%);
+  }
+
+  .hero-ornament {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  }
+
+  .doctor-card {
+    position: relative; z-index: 2;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 2rem; padding: 2.5rem;
+    max-width: 320px; text-align: center;
+    box-shadow: 0 20px 60px rgba(28,43,45,0.12);
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .doctor-avatar {
+    width: 110px; height: 110px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--sage), var(--accent));
+    margin: 0 auto 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; color: white;
+    box-shadow: 0 8px 24px rgba(107,158,122,0.4);
+    position: relative;
+  }
+
+  .doctor-avatar::after {
+    content: '✓'; position: absolute; bottom: 2px; right: 2px;
+    width: 26px; height: 26px; background: var(--warm);
+    border-radius: 50%; font-size: 0.7rem; color: white;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .doctor-name-card {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; color: var(--deep); font-weight: 600;
+  }
+
+  .doctor-title-card { font-size: 0.82rem; color: var(--accent); margin: 0.3rem 0 1rem; }
+
+  .card-badges {
+    display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center;
+  }
+
+  .badge {
+    font-size: 0.72rem; padding: 0.3rem 0.75rem;
+    background: var(--mist); border-radius: 2rem; color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Floating elements */
+  .float-el {
+    position: absolute; border-radius: 50%;
+    background: rgba(138,170,142,0.15);
+  }
+
+  .float-el.one { width: 200px; height: 200px; top: 10%; right: 5%; animation: float 8s ease-in-out infinite; }
+  .float-el.two { width: 120px; height: 120px; bottom: 20%; left: 10%; animation: float 6s ease-in-out infinite 2s; }
+  .float-el.three { width: 80px; height: 80px; top: 50%; right: 15%; animation: float 7s ease-in-out infinite 1s; }
+
+  /* ABOUT */
+  .about {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; padding: 7rem 8%;
+    align-items: center;
+    background: white;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-img-wrap {
+    border-radius: 2rem; overflow: hidden;
+    background: linear-gradient(135deg, #dce8e2, #c5daca);
+    aspect-ratio: 4/5;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 6rem;
+    box-shadow: 0 24px 60px rgba(28,43,45,0.12);
+  }
+
+  .about-badge-float {
+    position: absolute; top: -20px; right: -20px;
+    background: var(--warm); color: white;
+    padding: 1.2rem 1.5rem; border-radius: 1.2rem;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(201,169,110,0.4);
+  }
+
+  .about-badge-float strong {
+    display: block; font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; line-height: 1;
+  }
+
+  .about-badge-float span { font-size: 0.75rem; opacity: 0.9; }
+
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--accent); margin-bottom: 1rem; font-weight: 500;
+  }
+
+  .section-tag::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.2; font-weight: 300; color: var(--deep);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--sage); }
+
+  .about-text { font-size: 0.98rem; line-height: 1.85; color: #5a7072; margin-bottom: 1.2rem; }
+
+  .credentials {
+    display: flex; flex-direction: column; gap: 0.8rem; margin-top: 2rem;
+  }
+
+  .cred-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 0.9rem; color: var(--text);
+  }
+
+  .cred-icon {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--mist); display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; flex-shrink: 0;
+  }
+
+  /* SERVICES */
+  .services {
+    padding: 7rem 8%;
+    background: var(--light);
+  }
+
+  .services-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+  .services-header .section-tag { justify-content: center; }
+  .services-header .section-tag::before { display: none; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: white; border-radius: 1.5rem;
+    padding: 2.2rem; transition: all 0.4s;
+    border: 1px solid rgba(138,170,142,0.15);
+    position: relative; overflow: hidden;
+    cursor: default;
+  }
+
+  .service-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(138,170,142,0.05));
+    opacity: 0; transition: opacity 0.4s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(28,43,45,0.1);
+    border-color: rgba(138,170,142,0.35);
+  }
+
+  .service-card:hover::before { opacity: 1; }
+
+  .service-icon {
+    width: 52px; height: 52px; border-radius: 1rem;
+    background: var(--mist); display: flex; align-items: center;
+    justify-content: center; font-size: 1.5rem; margin-bottom: 1.2rem;
+    transition: background 0.3s;
+  }
+
+  .service-card:hover .service-icon { background: var(--sage); }
+
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600; color: var(--deep);
+    margin-bottom: 0.6rem;
+  }
+
+  .service-desc {
+    font-size: 0.88rem; line-height: 1.7; color: #6a8a8c;
+  }
+
+  .service-arrow {
+    margin-top: 1.2rem; font-size: 0.85rem; color: var(--accent);
+    font-weight: 500; display: flex; align-items: center; gap: 0.4rem;
+    opacity: 0; transition: opacity 0.3s; transform: translateX(-5px);
+    transition: all 0.3s;
+  }
+
+  .service-card:hover .service-arrow { opacity: 1; transform: translateX(0); }
+
+  /* APPROACH */
+  .approach {
+    background: var(--deep); color: var(--cream);
+    padding: 7rem 8%;
+    position: relative; overflow: hidden;
+  }
+
+  .approach::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 50%, rgba(138,170,142,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 20%, rgba(201,169,110,0.1) 0%, transparent 40%);
+  }
+
+  .approach-inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start;
+  }
+
+  .approach .section-tag { color: var(--sage); }
+  .approach .section-title { color: var(--cream); }
+
+  .approach-text { font-size: 0.98rem; line-height: 1.85; color: rgba(245,240,232,0.65); }
+
+  .approach-steps {
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+
+  .step {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    padding: 1.5rem; border-radius: 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(138,170,142,0.15);
+    transition: all 0.3s;
+  }
+
+  .step:hover {
+    background: rgba(138,170,142,0.08);
+    border-color: rgba(138,170,142,0.3);
+    transform: translateX(6px);
+  }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; font-weight: 600;
+    color: rgba(138,170,142,0.35); line-height: 1; min-width: 48px;
+  }
+
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 600;
+    color: var(--cream); margin-bottom: 0.4rem;
+  }
+
+  .step-text { font-size: 0.87rem; color: rgba(245,240,232,0.6); line-height: 1.6; }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    padding: 7rem 8%; background: white;
+  }
+
+  .testimonials-header { text-align: center; max-width: 600px; margin: 0 auto 4rem; }
+  .testimonials-header .section-tag { justify-content: center; }
+  .testimonials-header .section-tag::before { display: none; }
+
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;
+  }
+
+  .testi-card {
+    background: var(--light); border-radius: 1.5rem;
+    padding: 2rem;
+    border: 1px solid rgba(138,170,142,0.1);
+    transition: all 0.3s;
+  }
+
+  .testi-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(28,43,45,0.08);
+  }
+
+  .testi-stars { color: var(--warm); font-size: 1rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+
+  .testi-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; line-height: 1.7; color: var(--deep);
+    font-style: italic; margin-bottom: 1.5rem;
+  }
+
+  .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+
+  .testi-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--mist); display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+
+  .testi-name { font-size: 0.88rem; font-weight: 500; color: var(--deep); }
+  .testi-label { font-size: 0.78rem; color: #8aaa8e; }
+
+  /* CONTACT */
+  .contact {
+    padding: 7rem 8%;
+    background: linear-gradient(135deg, var(--light) 0%, var(--mist) 100%);
+  }
+
+  .contact-inner {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start;
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.4rem; background: white; border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(28,43,45,0.05);
+    border: 1px solid rgba(138,170,142,0.12);
+  }
+
+  .contact-icon {
+    width: 42px; height: 42px; border-radius: 0.75rem;
+    background: var(--mist); display: flex; align-items: center;
+    justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+  }
+
+  .contact-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.25rem; }
+  .contact-value { font-size: 0.95rem; color: var(--deep); font-weight: 500; }
+  .contact-sub { font-size: 0.8rem; color: #7a9496; }
+
+  /* FORM */
+  .contact-form {
+    background: white; border-radius: 1.5rem;
+    padding: 2.5rem;
+    box-shadow: 0 8px 40px rgba(28,43,45,0.08);
+  }
+
+  .form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; color: var(--deep); margin-bottom: 0.5rem;
+  }
+
+  .form-sub { font-size: 0.88rem; color: #7a9496; margin-bottom: 2rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+
+  .form-group label {
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em;
+    color: #7a9496; font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    border: 1.5px solid #e5ede8; border-radius: 0.75rem;
+    padding: 0.8rem 1rem; font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem; color: var(--text);
+    transition: border-color 0.3s; outline: none; background: var(--light);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--sage);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(138,170,142,0.1);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 110px; }
+
+  .form-submit {
+    width: 100%; background: var(--deep); color: var(--cream);
+    border: none; padding: 1rem; border-radius: 3rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    font-weight: 500; letter-spacing: 0.04em; cursor: pointer;
+    transition: all 0.3s; display: flex; align-items: center;
+    justify-content: center; gap: 0.5rem;
+  }
+
+  .form-submit:hover {
+    background: var(--accent);
+    box-shadow: 0 8px 24px rgba(107,158,122,0.35);
+    transform: translateY(-1px);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep); color: rgba(245,240,232,0.7);
+    padding: 3rem 8% 2rem;
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem; align-items: start;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--cream); margin-bottom: 0.75rem;
+  }
+
+  .footer-desc { font-size: 0.85rem; line-height: 1.7; }
+
+  .footer-head {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--sage); margin-bottom: 1rem; font-weight: 500;
+  }
+
+  .footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-links a {
+    color: rgba(245,240,232,0.6); text-decoration: none;
+    font-size: 0.88rem; transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--sage); }
+
+  .footer-bottom {
+    background: var(--deep);
+    text-align: center; padding: 1.2rem 8%;
+    border-top: 1px solid rgba(138,170,142,0.1);
+    font-size: 0.8rem; color: rgba(245,240,232,0.35);
+  }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-content { padding: 120px 5% 3rem; }
+    .hero-visual { height: 400px; clip-path: none; }
+    .about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 5%; }
+    .approach-inner { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 5%; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    footer { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 5%; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-content { padding: 90px 5% 3rem; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .services { padding: 5rem 5%; }
+    .testimonials { padding: 5rem 5%; }
+    .contact { padding: 5rem 5%; }
+    .about { padding: 5rem 5%; }
+    .approach { padding: 5rem 5%; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { padding: 3rem 5% 2rem; }
+    .footer-bottom { padding: 1.2rem 5%; }
+    .contact-form { padding: 1.8rem; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title { font-size: 2.4rem; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-outline { text-align: center; justify-content: center; }
+    .doctor-card { max-width: 280px; padding: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Dr. Serena <span>Voss</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#testimonials">Stories</a></li>
+    <li><a href="#contact" class="nav-cta">Book Appointment</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#approach" onclick="closeMobile()">Approach</a>
+  <a href="#testimonials" onclick="closeMobile()">Stories</a>
+  <a href="#contact" onclick="closeMobile()">Book Appointment</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-tag">Board-Certified Psychiatrist</div>
+    <h1 class="hero-title">
+      Your mind <em>deserves</em><br>compassionate care
+    </h1>
+    <p class="hero-sub">Dr. Serena Voss, M.D. — Psychiatrist</p>
+    <p class="hero-desc">
+      A safe, judgment-free space where healing begins with understanding.
+      Specializing in anxiety, depression, trauma, and mood disorders
+      with evidence-based, personalized treatment.
+    </p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Book a Consultation →</a>
+      <a href="#about" class="btn-outline">Learn More</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">2,400+</div>
+        <div class="stat-label">Patients Helped</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Patient Satisfaction</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-bg"></div>
+    <div class="float-el one"></div>
+    <div class="float-el two"></div>
+    <div class="float-el three"></div>
+    <div class="hero-ornament">
+      <div class="doctor-card">
+        <div class="doctor-avatar">👩‍⚕️</div>
+        <div class="doctor-name-card">Dr. Serena Voss</div>
+        <div class="doctor-title-card">M.D., Psychiatry · Board Certified</div>
+        <div class="card-badges">
+          <span class="badge">🏥 Johns Hopkins</span>
+          <span class="badge">🧠 Neuroscience</span>
+          <span class="badge">💚 Holistic Care</span>
+          <span class="badge">📋 CBT Expert</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-visual reveal">
+    <div class="about-img-wrap">🧠</div>
+    <div class="about-badge-float">
+      <strong>15+</strong>
+      <span>Years of<br>Practice</span>
+    </div>
+  </div>
+  <div class="reveal">
+    <div class="section-tag">About Dr. Voss</div>
+    <h2 class="section-title">Healing rooted in <em>science</em> and humanity</h2>
+    <p class="about-text">
+      Dr. Serena Voss is a board-certified psychiatrist with over 15 years of clinical experience.
+      A graduate of Johns Hopkins School of Medicine, she completed her residency at Massachusetts
+      General Hospital and fellowship at UCSF.
+    </p>
+    <p class="about-text">
+      She believes mental health care should be accessible, compassionate, and evidence-based.
+      Her integrative approach combines the latest in psychiatric medicine with mindfulness,
+      therapy, and lifestyle medicine for lasting wellness.
+    </p>
+    <div class="credentials">
+      <div class="cred-item"><div class="cred-icon">🎓</div> M.D., Johns Hopkins School of Medicine</div>
+      <div class="cred-item"><div class="cred-icon">🏥</div> Residency — Massachusetts General Hospital</div>
+      <div class="cred-item"><div class="cred-icon">🔬</div> Fellowship — UCSF Neuropsychiatry</div>
+      <div class="cred-item"><div class="cred-icon">📜</div> Board Certified — American Board of Psychiatry & Neurology</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header reveal">
+    <div class="section-tag">What I Offer</div>
+    <h2 class="section-title">Comprehensive <em>mental health</em> services</h2>
+    <p style="color:#6a8a8c;font-size:0.97rem;line-height:1.7;margin-top:1rem;">
+      Evidence-based treatments tailored to your unique needs and goals.
+    </p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">😔</div>
+      <div class="service-name">Depression & Mood Disorders</div>
+      <div class="service-desc">Comprehensive evaluation and personalized treatment for major depression, bipolar disorder, and persistent depressive disorder.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🌀</div>
+      <div class="service-name">Anxiety & Panic Disorders</div>
+      <div class="service-desc">Effective strategies combining CBT, medication management, and mindfulness for generalized anxiety, panic, and phobias.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">💊</div>
+      <div class="service-name">Medication Management</div>
+      <div class="service-desc">Expert psychiatric medication evaluation, prescribing, and ongoing monitoring to optimize therapeutic outcomes.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🧩</div>
+      <div class="service-name">Trauma & PTSD</div>
+      <div class="service-desc">Trauma-informed care using EMDR, prolonged exposure therapy, and somatic approaches for healing and recovery.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">💤</div>
+      <div class="service-name">Sleep & Stress Disorders</div>
+      <div class="service-desc">Targeted interventions for insomnia, burnout, and chronic stress through behavioral and pharmacological treatment.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">💻</div>
+      <div class="service-name">Telepsychiatry</div>
+      <div class="service-desc">Secure, convenient virtual appointments for those who prefer or require remote psychiatric care from the comfort of home.</div>
+      <div class="service-arrow">Learn more →</div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach" id="approach">
+  <div class="approach-inner">
+    <div class="reveal">
+      <div class="section-tag">My Philosophy</div>
+      <h2 class="section-title">A whole-person <em>approach</em> to healing</h2>
+      <p class="approach-text" style="margin-top:1.2rem;">
+        Mental wellness isn't a destination — it's a journey. I partner with each patient to
+        build sustainable wellbeing through science-backed methods and genuine human connection.
+      </p>
+      <a href="#contact" class="btn-primary" style="margin-top:2rem;display:inline-flex;">Start Your Journey →</a>
+    </div>
+    <div class="approach-steps reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <div class="step-title">Initial Comprehensive Evaluation</div>
+          <div class="step-text">A thorough 60-minute assessment to understand your history, symptoms, goals, and develop an accurate diagnosis.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <div class="step-title">Personalized Treatment Plan</div>
+          <div class="step-text">Together we create a tailored roadmap combining therapy modalities, medication if needed, and lifestyle factors.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <div class="step-title">Ongoing Support & Adjustment</div>
+          <div class="step-text">Regular follow-ups to monitor progress, refine treatment, and celebrate milestones on your path to wellness.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <div class="step-title">Long-Term Wellness Strategy</div>
+          <div class="step-text">Building resilience and coping tools so you can maintain your mental health independently and confidently.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-header reveal">
+    <div class="section-tag">Patient Stories</div>
+    <h2 class="section-title">Voices of <em>hope</em> and healing</h2>
+    <p style="color:#6a8a8c;font-size:0.97rem;line-height:1.7;margin-top:1rem;">
+      Confidential accounts shared with permission. Names changed to protect privacy.
+    </p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"Dr. Voss truly listened when no one else did. For the first time in years, I feel like myself again. Her compassion and expertise changed my life."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">🌸</div>
+        <div>
+          <div class="testi-name">Sarah M.</div>
+          <div class="testi-label">Treated for Anxiety & Depression</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"After struggling with PTSD for a decade, Dr. Voss's trauma-informed approach helped me reclaim my life. The telepsychiatry option was a game-changer."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">🌿</div>
+        <div>
+          <div class="testi-name">James T.</div>
+          <div class="testi-label">Treated for PTSD</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"The most thorough psychiatrist I've seen. She took time to explain everything and truly crafted a plan just for me. I trust her completely."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">✨</div>
+        <div>
+          <div class="testi-name">Maria L.</div>
+          <div class="testi-label">Medication Management Patient</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto 4rem;">
+    <div class="section-tag" style="justify-content:center;">
+      <span style="display:none;"></span>Get In Touch
+    </div>
+    <h2 class="section-title">Begin your journey to <em>wellness</em></h2>
+    <p style="color:#6a8a8c;font-size:0.97rem;line-height:1.7;margin-top:1rem;">
+      Reach out to schedule your first appointment. A member of our team will respond within 24 hours.
+    </p>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-info reveal">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Office Location</div>
+          <div class="contact-value">275 Wellness Avenue, Suite 400</div>
+          <div class="contact-sub">San Francisco, CA 94102</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">(415) 555-0192</div>
+          <div class="contact-sub">Mon–Fri, 9am–5pm PST</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">hello@drserenavirus.com</div>
+          <div class="contact-sub">Typically responds within 24hrs</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-label">Office Hours</div>
+          <div class="contact-value">Mon, Wed, Fri: 9am – 5pm</div>
+          <div class="contact-sub">Tue, Thu: 11am – 7pm · Sat by appt.</div>
+        </div>
+      </div>
+      <div style="padding:1.5rem;background:linear-gradient(135deg,#dce8e2,#c5daca);border-radius:1rem;text-align:center;">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem;">🌿</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--deep);font-weight:600;">Telehealth Available</div>
+        <div style="font-size:0.85rem;color:#5a7072;margin-top:0.3rem;">Secure video appointments for new & existing patients</div>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <div class="form-title">Request an Appointment</div>
+      <div class="form-sub">Fill out the form and we'll get back to you within one business day.</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Jane">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Doe">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="jane@example.com">
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="(555) 000-0000">
+      </div>
+      <div class="form-group">
+        <label>Service of Interest</label>
+        <select>
+          <option value="" disabled selected>Select a service...</option>
+          <option>Depression & Mood Disorders</option>
+          <option>Anxiety & Panic Disorders</option>
+          <option>Medication Management</option>
+          <option>Trauma & PTSD</option>
+          <option>Sleep & Stress Disorders</option>
+          <option>Telepsychiatry</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tell us a little about your needs</label>
+        <textarea placeholder="Share anything you'd like Dr. Voss to know before your appointment..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit(event)">
+        <span>Request Appointment</span> ✦
+      </button>
+      <p style="font-size:0.76rem;color:#aaa;text-align:center;margin-top:1rem;">
+        🔒 Your information is 100% confidential and HIPAA compliant.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Dr. Serena Voss, M.D.</div>
+    <div class="footer-desc">Board-certified psychiatrist dedicated to compassionate, evidence-based mental health care in San Francisco, CA.</div>
+  </div>
+  <div>
+    <div class="footer-head">Quick Links</div>
+    <div class="footer-links">
+      <a href="#about">About Dr. Voss</a>
+      <a href="#services">Services</a>
+      <a href="#approach">Treatment Approach</a>
+      <a href="#testimonials">Patient Stories</a>
+      <a href="#contact">Book Appointment</a>
+    </div>
+  </div>
+  <div>
+    <div class="footer-head">Services</div>
+    <div class="footer-links">
+      <a href="#services">Depression & Mood</a>
+      <a href="#services">Anxiety & Panic</a>
+      <a href="#services">Trauma & PTSD</a>
+      <a href="#services">Medication Management</a>
+      <a href="#services">Telepsychiatry</a>
+    </div>
+  </div>
+</footer>
+<div class="footer-bottom">
+  © 2025 Dr. Serena Voss, M.D. · All rights reserved · This is a sample/demo website
+</div>
+
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    btn.innerHTML = '✓ Request Sent! We\'ll be in touch soon.';
+    btn.style.background = 'var(--accent)';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = '<span>Request Appointment</span> ✦';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
+  }
+</script>
+</body>
+</html>
